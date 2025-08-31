@@ -1,0 +1,248 @@
+import React, { useState } from 'react';
+import { Menu, X, Home, Info, Mail, Eye, FileText, Moon, Sun } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+export default function Layout({ children, user, onLogout, darkMode, toggleDarkMode }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const navigation = [
+    { name: 'Home', href: '#home', icon: Home },
+    { name: 'About', href: '#about', icon: Info },
+    { name: 'Visualizer', href: '#visualizer', icon: Eye },
+    { name: 'Documentation', href: '#docs', icon: FileText },
+    { name: 'Contact', href: '#contact', icon: Mail },
+  ];
+
+  const scrollToSection = (href) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setSidebarOpen(false);
+  };
+
+  return (
+    <div className={`min-h-screen transition-colors duration-300 ${
+      darkMode ? 'bg-gray-900' : 'bg-gray-50'
+    }`}>
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute inset-0 ${
+          darkMode 
+            ? 'bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-cyan-900/20' 
+            : 'bg-gradient-to-br from-purple-100/30 via-blue-100/30 to-cyan-100/30'
+        }`} />
+        {/* Floating particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className={`absolute w-2 h-2 rounded-full ${
+              darkMode ? 'bg-cyan-400/30' : 'bg-purple-400/30'
+            }`}
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -100, 0],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 10 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Header */}
+      <header className={`relative z-50 backdrop-blur-md border-b transition-colors duration-300 ${
+        darkMode 
+          ? 'bg-gray-900/80 border-gray-700' 
+          : 'bg-white/80 border-gray-200'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo and Title */}
+            <div className="flex items-center space-x-3">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center"
+              >
+                <div className="w-6 h-6 border-2 border-white rounded-full border-dashed" />
+              </motion.div>
+              <h1 className={`text-xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent`}>
+                Quantum Bucket
+              </h1>
+            </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex space-x-8">
+              {navigation.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 ${
+                    darkMode
+                      ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  <item.icon className="w-4 h-4" />
+                  <span>{item.name}</span>
+                </button>
+              ))}
+            </nav>
+
+            {/* User Menu and Controls */}
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={toggleDarkMode}
+                className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
+                  darkMode
+                    ? 'text-yellow-400 hover:bg-gray-800'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+              
+              <div className={`flex items-center space-x-3 px-4 py-2 rounded-lg ${
+                darkMode ? 'bg-gray-800' : 'bg-gray-100'
+              }`}>
+                <img
+                  src={user?.photoURL || '/quantum-computing.png'}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full"
+                />
+                <span className={`hidden sm:block ${
+                  darkMode ? 'text-gray-300' : 'text-gray-700'
+                }`}>
+                  {user?.displayName}
+                </span>
+                <button
+                  onClick={onLogout}
+                  className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-200 hover:scale-105"
+                >
+                  Logout
+                </button>
+              </div>
+
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className={`md:hidden p-2 rounded-lg ${
+                  darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className={`fixed inset-y-0 left-0 z-40 w-64 backdrop-blur-md border-r md:hidden ${
+              darkMode 
+                ? 'bg-gray-900/95 border-gray-700' 
+                : 'bg-white/95 border-gray-200'
+            }`}
+          >
+            <div className="p-6 space-y-4 mt-16">
+              {navigation.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`flex items-center space-x-3 w-full px-4 py-3 rounded-lg transition-all duration-200 hover:scale-105 ${
+                    darkMode
+                      ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  <item.icon className="w-5 h-5" />
+                  <span>{item.name}</span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content */}
+      <main className="relative z-10">
+        {children}
+      </main>
+
+      {/* Footer */}
+      <footer className={`relative z-10 backdrop-blur-md border-t transition-colors duration-300 ${
+        darkMode 
+          ? 'bg-gray-900/80 border-gray-700 text-gray-300' 
+          : 'bg-white/80 border-gray-200 text-gray-600'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center">
+                  <div className="w-4 h-4 border-2 border-white rounded-full border-dashed" />
+                </div>
+                <span className="font-bold">Quantum Bucket</span>
+              </div>
+              <p className="text-sm">
+                Exploring the frontiers of quantum computing through interactive visualization and education.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Quick Links</h3>
+              <div className="space-y-2">
+                {navigation.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => scrollToSection(item.href)}
+                    className="block text-sm hover:text-purple-500 transition-colors duration-200"
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Connect</h3>
+              <div className="flex space-x-4">
+                {['GitHub', 'Twitter', 'LinkedIn'].map((social) => (
+                  <button
+                    key={social}
+                    className={`w-10 h-10 rounded-lg transition-all duration-200 hover:scale-110 ${
+                      darkMode
+                        ? 'bg-gray-800 hover:bg-purple-600'
+                        : 'bg-gray-100 hover:bg-purple-500 hover:text-white'
+                    }`}
+                  >
+                    {social[0]}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm">
+            © {new Date().getFullYear()} Quantum Bucket. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
