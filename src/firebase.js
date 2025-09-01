@@ -5,6 +5,8 @@ import {
   FacebookAuthProvider,
   TwitterAuthProvider,
   signInWithPopup, 
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
@@ -25,32 +27,56 @@ const auth = getAuth(app);
 
 // Configure providers
 const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope('email');
-googleProvider.addScope('profile');
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+});
 
 const facebookProvider = new FacebookAuthProvider();
-facebookProvider.addScope('email');
+facebookProvider.setCustomParameters({
+  display: 'popup'
+});
 
 const twitterProvider = new TwitterAuthProvider();
+twitterProvider.setCustomParameters({
+  lang: 'en'
+});
 
 // Authentication functions
-const loginWithGoogle = async () => {
+const loginWithGoogle = async (useRedirect = false) => {
   try {
-    const result = await signInWithPopup(auth, googleProvider);
+    let result;
+    if (useRedirect) {
+      await signInWithRedirect(auth, googleProvider);
+      return null; // Redirect will handle the rest
+    } else {
+      result = await signInWithPopup(auth, googleProvider);
+    }
     return result.user;
   } catch (error) {
-    console.error('Google login error:', error);
-    throw error;
+    if (error.code === 'auth/popup-blocked') {
+      // Fallback to redirect if popup is blocked
+      console.log('Popup blocked, trying redirect...');
+      await signInWithRedirect(auth, googleProvider);
+      return null;
+    } else {
+      console.error('Google login error:', error);
+      throw error;
+    }
   }
 };
 
-const loginWithFacebook = async () => {
+const loginWithFacebook = async (useRedirect = false) => {
   try {
-    const result = await signInWithPopup(auth, facebookProvider);
+    let result;
+    if (useRedirect) {
+      await signInWithRedirect(auth, facebookProvider);
+      return null;
+    } else {
+      result = await signInWithPopup(auth, facebookProvider);
+    }
     return result.user;
   } catch (error) {
-    console.error('Facebook login error:', error);
-    throw error;
+    if (error.code === 'auth/popup-blocked') {
   }
 };
 
