@@ -7,6 +7,8 @@ import {
   signInWithPopup, 
   signInWithRedirect,
   getRedirectResult,
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
@@ -30,13 +32,19 @@ const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: 'select_account'
 });
+});
 
 const facebookProvider = new FacebookAuthProvider();
 facebookProvider.setCustomParameters({
   display: 'popup'
 });
+  display: 'popup'
+});
 
 const twitterProvider = new TwitterAuthProvider();
+twitterProvider.setCustomParameters({
+  lang: 'en'
+});
 twitterProvider.setCustomParameters({
   lang: 'en'
 });
@@ -62,11 +70,29 @@ const loginWithGoogle = async (useRedirect = false) => {
       console.error('Google login error:', error);
       throw error;
     }
-  }
+    let result;
+    if (useRedirect) {
+      await signInWithRedirect(auth, googleProvider);
+      return null; // Redirect will handle the rest
+    } else {
+      result = await signInWithPopup(auth, googleProvider);
+    }
 };
 
+    if (error.code === 'auth/popup-blocked') {
+      // Fallback to redirect if popup is blocked
+      console.log('Popup blocked, trying redirect...');
+      await signInWithRedirect(auth, googleProvider);
+      return null;
+    } else {
+      console.error('Google login error:', error);
+      throw error;
+    }
+    let result;
+    if (useRedirect) {
+      await signInWithRedirect(auth, facebookProvider);
 const loginWithFacebook = async (useRedirect = false) => {
-  try {
+    } else {
     let result;
     if (useRedirect) {
       await signInWithRedirect(auth, facebookProvider);
@@ -74,19 +100,38 @@ const loginWithFacebook = async (useRedirect = false) => {
     } else {
       result = await signInWithPopup(auth, facebookProvider);
     }
+    }
     return result.user;
-  } catch (error) {
     if (error.code === 'auth/popup-blocked') {
+      console.log('Popup blocked, trying redirect...');
+      await signInWithRedirect(auth, facebookProvider);
+      return null;
+    } else {
+      console.error('Facebook login error:', error);
+      throw error;
+    }
   }
 };
 
-const loginWithTwitter = async () => {
+const loginWithTwitter = async (useRedirect = false) => {
   try {
-    const result = await signInWithPopup(auth, twitterProvider);
+    let result;
+    if (useRedirect) {
+      await signInWithRedirect(auth, twitterProvider);
+      return null;
+    } else {
+      result = await signInWithPopup(auth, twitterProvider);
+    }
     return result.user;
   } catch (error) {
-    console.error('Twitter login error:', error);
-    throw error;
+    if (error.code === 'auth/popup-blocked') {
+      console.log('Popup blocked, trying redirect...');
+      await signInWithRedirect(auth, twitterProvider);
+      return null;
+    } else {
+      console.error('Twitter login error:', error);
+      throw error;
+    }
   }
 };
 
@@ -110,6 +155,17 @@ const signInWithEmail = async (email, password) => {
   }
 };
 
+// Handle redirect result
+const handleRedirectResult = async () => {
+  try {
+    const result = await getRedirectResult(auth);
+    return result;
+  } catch (error) {
+    console.error('Redirect result error:', error);
+    throw error;
+  }
+};
+
 const logout = () => signOut(auth);
 
 export { 
@@ -119,5 +175,6 @@ export {
   loginWithTwitter,
   signUpWithEmail,
   signInWithEmail,
+  handleRedirectResult,
   logout 
 };

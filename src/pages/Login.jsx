@@ -4,6 +4,7 @@ import {
   loginWithGoogle, 
   loginWithFacebook, 
   loginWithTwitter,
+  handleRedirectResult,
   signUpWithEmail,
   signInWithEmail
 } from "../firebase";
@@ -28,6 +29,23 @@ export default function Login() {
     if (savedTheme) {
       setDarkMode(JSON.parse(savedTheme));
     }
+    
+    // Handle redirect result on component mount
+    const checkRedirectResult = async () => {
+      try {
+        const result = await handleRedirectResult();
+        if (result && result.user) {
+          // User successfully signed in via redirect
+          console.log('Redirect sign-in successful');
+        }
+      } catch (error) {
+        if (error.code !== 'auth/popup-closed-by-user') {
+          setError(error.message);
+        }
+      }
+    };
+    
+    checkRedirectResult();
   }, []);
 
   const toggleDarkMode = () => {
@@ -76,7 +94,10 @@ export default function Login() {
           throw new Error('Unknown provider');
       }
     } catch (error) {
-      setError(error.message);
+      // Only show error if it's not a popup-blocked error (handled automatically)
+      if (error.code !== 'auth/popup-blocked') {
+        setError(error.message);
+      }
     } finally {
       setLoading(false);
     }

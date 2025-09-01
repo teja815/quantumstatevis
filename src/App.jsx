@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { auth } from "./firebase";
+import { auth, handleRedirectResult } from "./firebase";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 
@@ -9,10 +9,22 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for redirect result first
+    const checkRedirect = async () => {
+      try {
+        await handleRedirectResult();
+      } catch (error) {
+        console.error('Redirect error:', error);
+      }
+    };
+    
+    checkRedirect();
+    
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
     });
+    
     return () => unsubscribe();
   }, []);
 
