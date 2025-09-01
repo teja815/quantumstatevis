@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Menu, X, Home, Info, Mail, Eye, FileText, Moon, Sun } from 'lucide-react';
+import { Menu, X, Home, Info, Mail, Eye, FileText, Moon, Sun, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SettingsSidebar from './SettingsSidebar';
 
 export default function Layout({ children, user, onLogout, darkMode, toggleDarkMode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const navigation = [
     { name: 'Home', href: '#home', icon: Home },
@@ -121,13 +123,19 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
                 <span className={`hidden sm:block ${
                   darkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}>
-                  {user?.displayName}
+                  {user?.displayName || 'Quantum User'}
                 </span>
+                
+                {/* Settings Button */}
                 <button
-                  onClick={onLogout}
-                  className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-200 hover:scale-105"
+                  onClick={() => setSettingsOpen(true)}
+                  className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
+                    darkMode
+                      ? 'text-gray-300 hover:text-white hover:bg-gray-700'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
+                  }`}
                 >
-                  Logout
+                  <Settings className="w-4 h-4" />
                 </button>
               </div>
 
@@ -178,6 +186,15 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Settings Sidebar */}
+      <SettingsSidebar
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        darkMode={darkMode}
+        user={user}
+        onLogout={onLogout}
+      />
 
       {/* Main Content */}
       <main className="relative z-10">
