@@ -101,6 +101,7 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
 
             {/* User Menu and Controls */}
             <div className="flex items-center space-x-4">
+
               <button
                 onClick={toggleDarkMode}
                 className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
@@ -111,7 +112,7 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
               >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              
+
               <div className={`flex items-center space-x-3 px-4 py-2 rounded-lg ${
                 darkMode ? 'bg-gray-800' : 'bg-gray-100'
               }`}>
@@ -125,7 +126,19 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
                 }`}>
                   {user?.displayName || 'Quantum User'}
                 </span>
-                
+                {/* Prominent Logout Button */}
+                <button
+                  onClick={onLogout}
+                  className={`ml-2 px-3 py-1 rounded-lg font-medium transition-all duration-200 border border-red-400 flex items-center space-x-1 shadow-sm hover:scale-105 ${
+                    darkMode
+                      ? 'bg-red-500/10 text-red-300 hover:bg-red-500/20 border-red-500'
+                      : 'bg-red-50 text-red-600 hover:bg-red-100 border-red-400'
+                  }`}
+                  title="Sign Out"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" /></svg>
+                  <span className="hidden sm:inline">Logout</span>
+                </button>
                 {/* Settings Button */}
                 <button
                   onClick={() => setSettingsOpen(true)}
