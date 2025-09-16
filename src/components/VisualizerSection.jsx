@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, ExternalLink, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function VisualizerSection({ darkMode, onVisualizerClick }) {
   return (
@@ -12,18 +13,24 @@ export default function VisualizerSection({ darkMode, onVisualizerClick }) {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
-            darkMode ? 'text-white' : 'text-gray-900'
-          }`}>
-            Quantum <span className="bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent">
+          <h2
+            className={`text-4xl md:text-5xl font-bold mb-6 ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}
+          >
+            Quantum{' '}
+            <span className="bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent">
               Visualizer
             </span>
           </h2>
-          <p className={`text-xl mb-12 max-w-2xl mx-auto ${
-            darkMode ? 'text-gray-300' : 'text-gray-600'
-          }`}>
-            Experience quantum mechanics like never before with our interactive 3D visualizer. 
-            Watch quantum states, superposition, and entanglement come to life.
+          <p
+            className={`text-xl mb-12 max-w-2xl mx-auto ${
+              darkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}
+          >
+            Experience quantum mechanics like never before with our interactive
+            3D visualizer. Watch quantum states, superposition, and entanglement
+            come to life.
           </p>
         </motion.div>
 
@@ -41,7 +48,7 @@ export default function VisualizerSection({ darkMode, onVisualizerClick }) {
         >
           {/* Animated background */}
           <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-cyan-500/10" />
-          
+
           {/* Floating elements */}
           {[...Array(6)].map((_, i) => (
             <motion.div
@@ -55,7 +62,7 @@ export default function VisualizerSection({ darkMode, onVisualizerClick }) {
               transition={{
                 duration: 8 + i,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
               style={{
                 left: `${20 + i * 15}%`,
@@ -68,25 +75,30 @@ export default function VisualizerSection({ darkMode, onVisualizerClick }) {
             <motion.div
               className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center"
               animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
             >
               <Sparkles className="w-16 h-16 text-white" />
             </motion.div>
 
-            <h3 className={`text-2xl font-bold mb-4 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h3
+              className={`text-2xl font-bold mb-4 ${
+                darkMode ? 'text-white' : 'text-gray-900'
+              }`}
+            >
               Interactive Quantum Simulator
             </h3>
-            
-            <p className={`text-lg mb-8 ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              Manipulate qubits, create quantum circuits, and observe quantum phenomena 
-              in our state-of-the-art 3D environment.
+
+            <p
+              className={`text-lg mb-8 ${
+                darkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}
+            >
+              Manipulate qubits, create quantum circuits, and observe quantum
+              phenomena in our state-of-the-art 3D environment.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {/* Launch Visualizer */}
               <motion.button
                 onClick={onVisualizerClick}
                 className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-cyan-600 text-white rounded-xl font-semibold text-lg overflow-hidden"
@@ -106,17 +118,20 @@ export default function VisualizerSection({ darkMode, onVisualizerClick }) {
                 </span>
               </motion.button>
 
-              <motion.button
-                className={`px-8 py-4 rounded-xl font-semibold text-lg border-2 transition-all duration-200 ${
-                  darkMode
-                    ? 'border-gray-600 text-gray-300 hover:border-purple-500 hover:text-white hover:bg-gray-800'
-                    : 'border-gray-300 text-gray-700 hover:border-purple-500 hover:text-purple-600 hover:bg-white'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Demo
-              </motion.button>
+              {/* View Demo (navigate to /view-demo) */}
+              <Link to="/view-demo">
+                <motion.button
+                  className={`px-8 py-4 rounded-xl font-semibold text-lg border-2 transition-all duration-200 ${
+                    darkMode
+                      ? 'border-gray-600 text-gray-300 hover:border-purple-500 hover:text-white hover:bg-gray-800'
+                      : 'border-gray-300 text-gray-700 hover:border-purple-500 hover:text-purple-600 hover:bg-white'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  View Demo
+                </motion.button>
+              </Link>
             </div>
           </div>
         </motion.div>

@@ -84,7 +84,7 @@ export default function ContactSection({ darkMode }) {
                       Email
                     </p>
                     <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                      contact@quantumbucket.com
+                      tejaneelapu15@gmail.com
                     </p>
                   </div>
                 </div>

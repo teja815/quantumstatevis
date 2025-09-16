@@ -1,30 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { auth, handleRedirectResult } from "./firebase";
+
+// Pages
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import LearnMore from "./pages/LearnMore";
+import ViewDemo from "./pages/ViewDemo";
+import QuantumMechanics from "./pages/QuantumMechanics";
+import QuantumComputing from "./pages/QuantumComputing";
+import RealTime from "./pages/RealTime";
+import Community from "./pages/Community";
+import GettingStarted from "./pages/GettingStarted";
+import APIReference from "./pages/APIReference";
+import Tutorials from "./pages/Tutorials";
+import Resources from "./pages/Resources";
+
+// Layout Wrapper
+import Layout from "./components/Layout";
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // 🔹 Global Dark Mode State
+  const [darkMode, setDarkMode] = useState(false);
+
   useEffect(() => {
-    // Check for redirect result first
+    const savedTheme = localStorage.getItem("darkMode");
+    if (savedTheme) {
+      setDarkMode(JSON.parse(savedTheme));
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    localStorage.setItem("darkMode", JSON.stringify(newMode));
+  };
+
+  useEffect(() => {
     const checkRedirect = async () => {
       try {
         await handleRedirectResult();
       } catch (error) {
-        console.error('Redirect error:', error);
+        console.error("Redirect error:", error);
       }
     };
-    
     checkRedirect();
-    
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
     });
-    
+
     return () => unsubscribe();
   }, []);
 
@@ -40,11 +69,151 @@ function App() {
       </div>
     );
   }
+
   return (
     <Router>
       <Routes>
+        {/* Auth Routes */}
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-        <Route path="/" element={user ? <Home user={user} /> : <Navigate to="/login" />} />
+        <Route
+          path="/"
+          element={
+            user ? (
+              <Home
+                user={user}
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        {/* Connected Pages */}
+        <Route
+          path="/learn"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <LearnMore darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/view-demo"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <ViewDemo darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/quantum-mech"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <QuantumMechanics darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/quantum-computing"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <QuantumComputing darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/real-time"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <RealTime darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/community"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <Community darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/getting-started"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <GettingStarted darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/api"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <APIReference darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/tutorials"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <Tutorials darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/resources"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <Resources darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
       </Routes>
     </Router>
   );
