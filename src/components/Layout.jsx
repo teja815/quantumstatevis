@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, Home, Info, Mail, Eye, FileText, Moon, Sun, Settings } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SettingsSidebar from './SettingsSidebar';
 
@@ -8,20 +9,14 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const navigation = [
-    { name: 'Home', href: '#home', icon: Home },
-    { name: 'About', href: '#about', icon: Info },
-    { name: 'Visualizer', href: '#visualizer', icon: Eye },
-    { name: 'Documentation', href: '#docs', icon: FileText },
-    { name: 'Contact', href: '#contact', icon: Mail },
+    { name: 'Home', to: '/', icon: Home },
+    { name: 'About', to: '/learn', icon: Info },
+    { name: 'Visualizer', to: '/real-time', icon: Eye },
+    { name: 'Documentation', to: '/docs', icon: FileText },
+    { name: 'Contact', to: '/community', icon: Mail },
   ];
 
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setSidebarOpen(false);
-  };
+
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
@@ -81,41 +76,27 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
               </h1>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
-              {navigation.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 ${
-                    darkMode
-                      ? 'text-gray-300 hover:text-white hover:bg-gray-800'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span>{item.name}</span>
-                </button>
-              ))}
-            </nav>
-
-            {/* User Menu and Controls */}
-            <div className="flex items-center space-x-4">
-
-              <button
-                onClick={toggleDarkMode}
-                className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
-                  darkMode
-                    ? 'text-yellow-400 hover:bg-gray-800'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-              >
-                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-
-              <div className={`flex items-center space-x-3 px-4 py-2 rounded-lg ${
-                darkMode ? 'bg-gray-800' : 'bg-gray-100'
-              }`}>
+            {/* Desktop Navigation + Profile (Unified) */}
+            <div className="hidden md:flex items-center space-x-8 w-full justify-end">
+              <nav className="flex space-x-8">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.to}
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 ${
+                      darkMode
+                        ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    }`}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    <span>{item.name}</span>
+                  </Link>
+                ))}
+              </nav>
+              {/* Profile, Logout, Settings, DarkMode */}
+              <div className="flex items-center space-x-3">
                 <img
                   src={user?.photoURL || '/quantum-computing.png'}
                   alt="Profile"
@@ -126,7 +107,6 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
                 }`}>
                   {user?.displayName || 'Quantum User'}
                 </span>
-                {/* Prominent Logout Button */}
                 <button
                   onClick={onLogout}
                   className={`ml-2 px-3 py-1 rounded-lg font-medium transition-all duration-200 border border-red-400 flex items-center space-x-1 shadow-sm hover:scale-105 ${
@@ -139,7 +119,6 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" /></svg>
                   <span className="hidden sm:inline">Logout</span>
                 </button>
-                {/* Settings Button */}
                 <button
                   onClick={() => setSettingsOpen(true)}
                   className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
@@ -150,12 +129,24 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
                 >
                   <Settings className="w-4 h-4" />
                 </button>
+                <button
+                  onClick={toggleDarkMode}
+                  className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
+                    darkMode
+                      ? 'text-yellow-400 hover:bg-gray-800'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
               </div>
+            </div>
 
-              {/* Mobile menu button */}
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className={`md:hidden p-2 rounded-lg ${
+                className={`p-2 rounded-lg ${
                   darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
@@ -182,18 +173,19 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
           >
             <div className="p-6 space-y-4 mt-16">
               {navigation.map((item) => (
-                <button
+                <Link
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
+                  to={item.to}
                   className={`flex items-center space-x-3 w-full px-4 py-3 rounded-lg transition-all duration-200 hover:scale-105 ${
                     darkMode
                       ? 'text-gray-300 hover:text-white hover:bg-gray-800'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                   }`}
+                  onClick={() => setSidebarOpen(false)}
                 >
                   <item.icon className="w-5 h-5" />
                   <span>{item.name}</span>
-                </button>
+                </Link>
               ))}
             </div>
           </motion.div>
@@ -238,13 +230,14 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <div className="space-y-2">
                 {navigation.map((item) => (
-                  <button
+                  <Link
                     key={item.name}
-                    onClick={() => scrollToSection(item.href)}
+                    to={item.to}
                     className="block text-sm hover:text-purple-500 transition-colors duration-200"
+                    onClick={() => setSidebarOpen(false)}
                   >
                     {item.name}
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>

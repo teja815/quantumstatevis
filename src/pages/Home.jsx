@@ -2,11 +2,13 @@ import React from "react";
 import { logout } from "../firebase";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
+
 import HeroSection from "../components/HeroSection";
 import AboutSection from "../components/AboutSection";
 import VisualizerSection from "../components/VisualizerSection";
 import DocumentationSection from "../components/DocumentationSection";
 import ContactSection from "../components/ContactSection";
+import QuantumComputingIntro from "./QuantumComputingIntro";
 
 export default function Home({ user, darkMode, toggleDarkMode }) {
   const handleVisualizerClick = () => {
@@ -28,6 +30,8 @@ export default function Home({ user, darkMode, toggleDarkMode }) {
       darkMode={darkMode}
       toggleDarkMode={toggleDarkMode}
     >
+
+
       {/* Existing Sections */}
       <HeroSection darkMode={darkMode} onVisualizerClick={handleVisualizerClick} />
       <AboutSection darkMode={darkMode} />
@@ -59,7 +63,12 @@ export default function Home({ user, darkMode, toggleDarkMode }) {
             <Link
               key={path}
               to={path}
-              className="p-4 rounded-xl text-center font-semibold shadow-md bg-white/70 dark:bg-slate-800/70 hover:scale-105 hover:shadow-lg transition transform duration-300"
+              className="bg-gradient-to-r from-amber-200/70 via-orange-200/70 to-pink-200/70 dark:from-orange-900/70 dark:via-rose-900/70 dark:to-amber-900/70
+              hover:from-amber-300/80 hover:via-orange-300/80 hover:to-pink-300/80
+              dark:hover:from-orange-800/80 dark:hover:via-rose-800/80 dark:hover:to-amber-800/80
+              text-black dark:text-white font-semibold py-3 px-4 rounded-lg text-center
+              transition transform hover:scale-105 shadow-lg hover:shadow-xl
+"
             >
               {label}
             </Link>

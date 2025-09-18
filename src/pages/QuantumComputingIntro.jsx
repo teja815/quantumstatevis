@@ -58,7 +58,7 @@ const steps = [
   }
 ];
 
-export default function QuantumComputing({ darkMode }) {
+export default function QuantumComputingIntro() {
   return (
     <section className="py-16 px-4 max-w-4xl mx-auto">
       <motion.h2
