@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { Play, ExternalLink, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export default function VisualizerSection({ darkMode, onVisualizerClick }) {
+import { Cpu } from 'lucide-react';
+export default function VisualizerSection({ darkMode, onVisualizerClick, showAmplitudeCard }) {
   return (
     <section id="visualizer" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto text-center">
@@ -135,6 +136,35 @@ export default function VisualizerSection({ darkMode, onVisualizerClick }) {
             </div>
           </div>
         </motion.div>
+        {/* State Amplitude to Circuit Generator Card (if enabled) */}
+        {showAmplitudeCard && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="rounded-2xl bg-white/80 dark:bg-gray-900/60 shadow-lg border border-pink-100 dark:border-cyan-900 p-8 flex flex-col items-center gap-6 max-w-xl mx-auto mt-12"
+          >
+            <Cpu className="w-16 h-16 text-pink-500 dark:text-cyan-400 animate-pulse" />
+            <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>State Amplitude to Circuit Generator</h3>
+            <p className={`text-lg mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Input your target quantum state amplitudes and get a step-by-step quantum circuit that prepares it. Great for learning, research, and experimentation.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="https://quantumai.google/cirq/experiments/state-preparation" target="_blank" rel="noopener noreferrer">
+                <motion.button
+                  className="group relative px-8 py-4 bg-gradient-to-r from-pink-600 to-cyan-600 text-white rounded-xl font-semibold text-lg overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="relative flex items-center justify-center space-x-2">
+                    <Play className="w-5 h-5" />
+                    <span>Demo</span>
+                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                  </span>
+                </motion.button>
+              </a>
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );
