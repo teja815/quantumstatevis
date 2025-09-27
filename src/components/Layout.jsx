@@ -3,7 +3,7 @@ import { Menu, X, Home, Info, Mail, Eye, FileText, Moon, Sun, Settings } from 'l
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SettingsSidebar from './SettingsSidebar';
-import { FaGoogle, FaTelegramPlane, FaLinkedin } from 'react-icons/fa';
+import QVFooter from './QVFooter';
 
 export default function Layout({ children, user, onLogout, darkMode, toggleDarkMode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -207,93 +207,8 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className={`relative z-10 backdrop-blur-md border-t transition-colors duration-300 ${
-        darkMode 
-          ? 'bg-gray-900/80 border-gray-700 text-gray-300' 
-          : 'bg-white/80 border-gray-200 text-gray-600'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center">
-                  <div className="w-4 h-4 border-2 border-white rounded-full border-dashed" />
-                </div>
-                <span className="font-bold">Quantum Bucket</span>
-              </div>
-              <p className="text-sm">
-                Exploring the frontiers of quantum computing through interactive visualization and education.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
-              <div className="space-y-2">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.to}
-                    className="block text-sm hover:text-purple-500 transition-colors duration-200"
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Connect</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.google.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 hover:scale-110 ${
-                    darkMode
-                      ? 'bg-gray-800 hover:bg-purple-600 text-white'
-                      : 'bg-gray-100 hover:bg-blue-600 text-blue-700 hover:text-white'
-                  }`}
-                  title="Google"
-                >
-                  <FaGoogle className="w-6 h-6" />
-                </a>
-                <a
-                  href="https://telegram.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 hover:scale-110 ${
-                    darkMode
-                      ? 'bg-gray-800 hover:bg-purple-600 text-white'
-                      : 'bg-gray-100 hover:bg-blue-400 text-blue-500 hover:text-white'
-                  }`}
-                  title="Telegram"
-                >
-                  <FaTelegramPlane className="w-6 h-6" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/neelapu-teja/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 hover:scale-110 ${
-                    darkMode
-                      ? 'bg-gray-800 hover:bg-purple-600 text-white'
-                      : 'bg-gray-100 hover:bg-blue-800 text-blue-700 hover:text-white'
-                  }`}
-                  title="LinkedIn"
-                >
-                  <FaLinkedin className="w-6 h-6" />
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm">
-            © {new Date().getFullYear()} Quantum Bucket. All rights reserved.
-          </div>
-        </div>
-      </footer>
+  {/* QVFooter: Modern, responsive, interactive footer */}
+  <QVFooter />
     </div>
   );
 }
