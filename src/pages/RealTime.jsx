@@ -68,7 +68,7 @@ export default function RealTime({ darkMode }) {
         </motion.p>
 
         <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <motion.div className="rounded-2xl bg-gradient-to-br from-pink-100/80 to-cyan-100/60 dark:from-gray-800 dark:to-gray-900 p-8 shadow-xl flex flex-col gap-4 items-center" initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+          <motion.div className="rounded-2xl bg-gradient-to-br from-pink-100/80 to-cyan-100 dark:from-blue-900/60 dark:to-gray-900 p-8 shadow-xl flex flex-col gap-4 items-center" initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
             <img src="/6874082.jpg" alt="Quantum Visualization" className="rounded-xl w-48 h-48 object-cover shadow-lg mb-4 border-4 border-pink-200 dark:border-cyan-700" />
             <div className="flex flex-wrap gap-2 justify-center">
               <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-pink-500 to-cyan-500 text-white font-semibold shadow hover:from-cyan-500 hover:to-pink-500 transition-all flex items-center gap-2"><PlayCircle className="w-5 h-5" />Play Circuit</button>
@@ -76,12 +76,12 @@ export default function RealTime({ darkMode }) {
               <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold shadow hover:from-purple-500 hover:to-cyan-500 transition-all flex items-center gap-2"><Share2 className="w-5 h-5" />Share</button>
             </div>
           </motion.div>
-          <motion.div className="rounded-2xl bg-gradient-to-br from-cyan-100/80 to-pink-100/60 dark:from-gray-900 dark:to-gray-800 p-8 shadow-xl flex flex-col gap-4" initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+          <motion.div className="rounded-2xl bg-gradient-to-br from-cyan-100/80 to-pink-100/60 dark:from-green-900/60 dark:to-gray-800 p-8 shadow-xl flex flex-col gap-4" initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
             <ul className="space-y-4">
               <li className="flex items-start gap-3"><Info className="w-6 h-6 text-pink-400 mt-1" /> <span>Single-qubit and multi-qubit systems</span></li>
               <li className="flex items-start gap-3"><Zap className="w-6 h-6 text-yellow-400 mt-1" /> <span>Standard quantum gates ({keywordLink("X, Y, Z, H, CNOT, SWAP, Toffoli, rotation gates", "https://www.google.com/search?q=quantum+gates", "https://en.wikipedia.org/wiki/Quantum_logic_gate")})</span></li>
               <li className="flex items-start gap-3"><BarChart2 className="w-6 h-6 text-green-400 mt-1" /> <span>State vector and probability distribution visualization</span></li>
-              <li className="flex items-start gap-3"><Eye className="w-6 h-6 text-cyan-400 mt-1" /> <span>Bloch sphere representation for individual qubits</span></li>
+              <li className="flex items-start gap-3"><Eye className="w-6 h-6 text-cyan-900 mt-1" /> <span>Bloch sphere representation for individual qubits</span></li>
               <li className="flex items-start gap-3"><PlayCircle className="w-6 h-6 text-purple-400 mt-1" /> <span>Interactive circuit building with step-by-step playback</span></li>
             </ul>
           </motion.div>

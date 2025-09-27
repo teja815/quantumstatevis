@@ -9,13 +9,18 @@ export default function HeroSection({ darkMode }) {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
+
       {/* Background Animation */}
       <div className="absolute inset-0">
-        <motion.div
-          className="w-full h-full bg-gradient-to-br from-purple-900 via-blue-900 to-cyan-900 opacity-60"
-          animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
+        {darkMode ? (
+          <motion.div
+            className="w-full h-full bg-gradient-to-br from-purple-900 via-blue-900 to-cyan-900 opacity-60"
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        ) : (
+          <div className="w-full h-full bg-transparent" />
+        )}
       </div>
 
       {/* Content */}

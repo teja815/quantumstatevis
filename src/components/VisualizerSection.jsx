@@ -143,7 +143,11 @@ export default function VisualizerSection({ darkMode, onVisualizerClick, showAmp
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="rounded-2xl bg-white/80 dark:bg-gray-900/60 shadow-lg border border-pink-100 dark:border-cyan-900 p-8 flex flex-col items-center gap-6 max-w-xl mx-auto mt-12"
+            className={`rounded-2xl shadow-lg border p-8 flex flex-col items-center gap-6 max-w-xl mx-auto mt-12 ${
+              darkMode
+                ? 'bg-blue-900/60 border-cyan-900'
+                : 'bg-white/0 border-gray-200'
+            }`}
           >
             <Cpu className="w-16 h-16 text-pink-500 dark:text-cyan-400 animate-pulse" />
             <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>State Amplitude to Circuit Generator</h3>

@@ -108,7 +108,7 @@ export default function QuantumMechanics({ darkMode }) {
           {features.map((f, i) => (
             <motion.div
               key={f.title}
-              className="flex flex-col items-center bg-white/80 dark:bg-gray-900/60 rounded-xl shadow-lg p-6 border border-purple-100 dark:border-gray-800 hover:scale-105 transition-transform group"
+              className="flex flex-col items-center bg-white/80 dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-purple-100 dark:border-gray-800 hover:scale-105 transition-transform group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -133,7 +133,7 @@ export default function QuantumMechanics({ darkMode }) {
           {benefits.map((b, i) => (
             <motion.div
               key={b.title}
-              className="flex flex-col items-center bg-gradient-to-br from-purple-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 shadow-md border border-purple-100 dark:border-gray-800 hover:scale-105 transition-transform"
+              className="flex flex-col items-center bg-gradient-to-br from-purple-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 shadow-md border border-purple-100 dark:border-gray-800 hover:scale-120 transition-transform"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

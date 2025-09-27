@@ -44,12 +44,12 @@ const steps = [
   {
     icon: <Sparkles className="w-7 h-7 text-amber-500 dark:text-amber-300" />,
     title: "Apply quantum gates",
-    desc: "Drag and drop gates like X, H, or CNOT to build your circuit."
+    desc: "Choose gates from Dropdown and select like X, H, or CNOT to build your circuit."
   },
   {
     icon: <PlayCircle className="w-7 h-7 text-blue-500 dark:text-purple-300" />,
-    title: "Simulate or Run",
-    desc: "See your circuit in action using our simulator or real quantum hardware."
+    title: "Visualise and Run circuit",
+    desc: "Visualise the Q-sphere ,Histograms and Bloch sphere of respective qubits ."
   },
   {
     icon: <BarChart2 className="w-7 h-7 text-green-500 dark:text-cyan-300" />,
@@ -70,7 +70,7 @@ export default function QuantumComputing({ darkMode }) {
         🌟 What is Quantum Computing?
       </motion.h2>
       <motion.p
-        className="text-lg text-center mb-10 text-gray-700 dark:text-gray-300 max-w-2xl mx-auto"
+        className="text-lg text-center mb-10 text-gray-900 dark:text-gray-700 max-w-2xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.7 }}
@@ -90,7 +90,7 @@ export default function QuantumComputing({ darkMode }) {
         {keyConcepts.map((concept, i) => (
           <motion.div
             key={concept.title}
-            className="flex flex-col items-center bg-white/70 dark:bg-gray-900/60 rounded-xl shadow-lg p-6 border border-purple-100 dark:border-gray-800 hover:scale-105 transition-transform"
+            className="flex flex-col items-center bg-white/70 dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-purple-100 dark:border-gray-800 hover:scale-105 transition-transform"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

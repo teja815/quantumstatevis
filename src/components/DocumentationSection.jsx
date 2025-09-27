@@ -110,9 +110,13 @@ export default function DocumentationSection({ darkMode }) {
                   {doc.description}
                 </p>
 
-                {/* Hover Arrow */}
+                {/* Hover Arrow / Reference Link */}
                 <motion.div
-                  className="mt-4 flex items-center text-sm font-medium text-purple-500"
+                  className={`mt-4 flex items-center text-sm font-medium transition-colors duration-200 ${
+                    darkMode
+                      ? 'text-cyan-400 group-hover:text-purple-400'
+                      : 'text-purple-600 group-hover:text-cyan-600'
+                  }`}
                   initial={{ opacity: 0, x: -10 }}
                   whileHover={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.2 }}

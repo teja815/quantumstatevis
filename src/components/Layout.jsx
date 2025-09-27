@@ -3,6 +3,7 @@ import { Menu, X, Home, Info, Mail, Eye, FileText, Moon, Sun, Settings } from 'l
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SettingsSidebar from './SettingsSidebar';
+import { FaGoogle, FaTelegramPlane, FaLinkedin } from 'react-icons/fa';
 
 export default function Layout({ children, user, onLogout, darkMode, toggleDarkMode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -10,10 +11,10 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
 
   const navigation = [
     { name: 'Home', to: '/', icon: Home },
-    { name: 'About', to: '/learn', icon: Info },
-    { name: 'Visualizer', to: '/real-time', icon: Eye },
-    { name: 'Documentation', to: '/docs', icon: FileText },
-    { name: 'Contact', to: '/community', icon: Mail },
+    { name: 'About', to: '/#about', icon: Info },
+    { name: 'Visualizer', to: '/#visualizer', icon: Eye },
+    { name: 'Documentation', to: '/#docs', icon: FileText },
+    { name: 'Contact', to: '/#contact', icon: Mail },
   ];
 
 
@@ -54,11 +55,11 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
         ))}
       </div>
 
-      {/* Header */}
-      <header className={`relative z-50 backdrop-blur-md border-b transition-colors duration-300 ${
+      {/* Header (Fixed) */}
+      <header className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b transition-colors duration-300 ${
         darkMode 
           ? 'bg-gray-900/80 border-gray-700' 
-          : 'bg-white/80 border-gray-200'
+          : 'bg-[#155eab]/90 border-[#155eab]'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -80,19 +81,19 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
             <div className="hidden md:flex items-center space-x-8 w-full justify-end">
               <nav className="flex space-x-8">
                 {navigation.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
-                    to={item.to}
-                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 ${
-                      darkMode
-                        ? 'text-gray-300 hover:text-white hover:bg-gray-800'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    href={item.to}
+                      className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 ${
+                        darkMode
+                          ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                          : 'text-white hover:text-cyan-100 hover:bg-blue-700'
                     }`}
                     onClick={() => setSidebarOpen(false)}
                   >
                     <item.icon className="w-4 h-4" />
                     <span>{item.name}</span>
-                  </Link>
+                  </a>
                 ))}
               </nav>
               {/* Profile, Logout, Settings, DarkMode */}
@@ -173,19 +174,19 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
           >
             <div className="p-6 space-y-4 mt-16">
               {navigation.map((item) => (
-                <Link
+                <a
                   key={item.name}
-                  to={item.to}
-                  className={`flex items-center space-x-3 w-full px-4 py-3 rounded-lg transition-all duration-200 hover:scale-105 ${
-                    darkMode
-                      ? 'text-gray-300 hover:text-white hover:bg-gray-800'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  href={item.to}
+                    className={`flex items-center space-x-3 w-full px-4 py-3 rounded-lg transition-all duration-200 hover:scale-105 ${
+                      darkMode
+                        ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                        : 'text-white hover:text-cyan-100 hover:bg-blue-700'
                   }`}
                   onClick={() => setSidebarOpen(false)}
                 >
                   <item.icon className="w-5 h-5" />
                   <span>{item.name}</span>
-                </Link>
+                </a>
               ))}
             </div>
           </motion.div>
@@ -201,8 +202,8 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
         onLogout={onLogout}
       />
 
-      {/* Main Content */}
-      <main className="relative z-10">
+      {/* Main Content (add padding for fixed header) */}
+      <main className="relative z-10 pt-20">
         {children}
       </main>
 
@@ -230,14 +231,14 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <div className="space-y-2">
                 {navigation.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
-                    to={item.to}
+                    href={item.to}
                     className="block text-sm hover:text-purple-500 transition-colors duration-200"
                     onClick={() => setSidebarOpen(false)}
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
@@ -245,18 +246,45 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
             <div>
               <h3 className="font-semibold mb-4">Connect</h3>
               <div className="flex space-x-4">
-                {['GitHub', 'Twitter', 'LinkedIn'].map((social) => (
-                  <button
-                    key={social}
-                    className={`w-10 h-10 rounded-lg transition-all duration-200 hover:scale-110 ${
-                      darkMode
-                        ? 'bg-gray-800 hover:bg-purple-600'
-                        : 'bg-gray-100 hover:bg-purple-500 hover:text-white'
-                    }`}
-                  >
-                    {social[0]}
-                  </button>
-                ))}
+                <a
+                  href="https://www.google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 hover:scale-110 ${
+                    darkMode
+                      ? 'bg-gray-800 hover:bg-purple-600 text-white'
+                      : 'bg-gray-100 hover:bg-blue-600 text-blue-700 hover:text-white'
+                  }`}
+                  title="Google"
+                >
+                  <FaGoogle className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://telegram.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 hover:scale-110 ${
+                    darkMode
+                      ? 'bg-gray-800 hover:bg-purple-600 text-white'
+                      : 'bg-gray-100 hover:bg-blue-400 text-blue-500 hover:text-white'
+                  }`}
+                  title="Telegram"
+                >
+                  <FaTelegramPlane className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/neelapu-teja/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 hover:scale-110 ${
+                    darkMode
+                      ? 'bg-gray-800 hover:bg-purple-600 text-white'
+                      : 'bg-gray-100 hover:bg-blue-800 text-blue-700 hover:text-white'
+                  }`}
+                  title="LinkedIn"
+                >
+                  <FaLinkedin className="w-6 h-6" />
+                </a>
               </div>
             </div>
           </div>
