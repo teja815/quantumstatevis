@@ -59,7 +59,7 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
       <header className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b transition-colors duration-300 ${
         darkMode 
           ? 'bg-gray-900/80 border-gray-700' 
-          : 'bg-[#155eab]/90 border-[#155eab]'
+          : 'bg-[#155eab]/60 border-[#155eab] bg-clip-padding backdrop-filter backdrop-blur-lg'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">

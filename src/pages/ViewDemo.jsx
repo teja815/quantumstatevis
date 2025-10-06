@@ -25,7 +25,7 @@ export default function ViewDemo({ darkMode }) {
         {/* Replace src with your demo video */}
         <iframe
           className="w-full h-full"
-          src="https://www.youtube.com/embed/ffcOcghuYFM"
+          src="https://www.youtube.com/embed/QklXNk3VLz0"
           title="Quantum Demo"
           frameBorder="0"
           allowFullScreen

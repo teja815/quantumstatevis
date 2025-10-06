@@ -28,21 +28,46 @@ export default function QVFooter() {
         <div>
           <h3 className="font-semibold text-white mb-4 cursor-pointer md:cursor-default" onClick={() => toggleSection("quick")}>Quick Links</h3>
           <ul className={`space-y-2 text-sm ${openSection === "quick" || !openSection ? "block" : "hidden md:block"}`}>
-            <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">About the Team</a></li>
-            <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Hackathon Tracks</a></li>
-            <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Resources</a></li>
-            <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Contact Us</a></li>
+            <li className="relative group">
+              <a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">About us</a>
+              <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-gray-900 text-white text-xs rounded-lg shadow-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-50">
+                <div className="font-semibold mb-1">Team Members</div>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Teja-Team lead</li>
+                  <li>Mani</li>
+                  <li>Gargija</li>
+                  <li>Haritha</li>
+                  <li>Leela</li>
+                  <li>Poornima</li>
+                </ul>
+              </div>
+            </li>
+            <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Hackathon work/ppt</a></li>
+           
+            <li className="relative group">
+              <a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Contact Us</a>
+              <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-gray-900 text-white text-xs rounded-lg shadow-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-50">
+                <div className="font-semibold mb-1">Contact Number</div>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>9392522941</li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
 
         {/* Updates */}
         <div>
-          <h3 className="font-semibold text-white mb-4 cursor-pointer md:cursor-default" onClick={() => toggleSection("updates")}>Updates</h3>
+          <h3 className="font-semibold text-white mb-4 cursor-pointer md:cursor-default" onClick={() => toggleSection("updates")}>AQVH-2K25</h3>
           <ul className={`space-y-2 text-sm ${openSection === "updates" || !openSection ? "block" : "hidden md:block"}`}>
+             <li><a href="https://iic.apsche.ap.gov.in/" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">official  hackathon site</a></li>
             <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">News & Announcements</a></li>
             <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Events & Workshops</a></li>
-            <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Careers & Internships</a></li>
-            <li><a href="#" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Research Highlights</a></li>
+
+           <li><a href="https://www.youtube.com/live/jBS_APFMjAg?si=f_HpDPjD1Ue-_yEi" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Bootcamp of aqvh</a></li>
+
+            <li><a href="https://www.iaair.ai/iaair-fall-2025-internships" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Careers & Internships</a></li>
+            <li><a href="https://docs.google.com/document/d/1Igs4xb68w4V2kP-Cd7vs8oS6E5NMEdsSyd2flfGfjQU/edit?usp=sharing" className="text-white hover:underline hover:text-cyan-400 transition-colors duration-200">Research Highlights</a></li>
           </ul>
         </div>
 

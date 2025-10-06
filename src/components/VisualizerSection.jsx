@@ -153,7 +153,7 @@ export default function VisualizerSection({ darkMode, onVisualizerClick, showAmp
             <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>State Amplitude to Circuit Generator</h3>
             <p className={`text-lg mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Input your target quantum state amplitudes and get a step-by-step quantum circuit that prepares it. Great for learning, research, and experimentation.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://quantumai.google/cirq/experiments/state-preparation" target="_blank" rel="noopener noreferrer">
+              <a href="https://teja815.github.io/state-to-ckt/" target="_blank" rel="noopener noreferrer">
                 <motion.button
                   className="group relative px-8 py-4 bg-gradient-to-r from-pink-600 to-cyan-600 text-white rounded-xl font-semibold text-lg overflow-hidden"
                   whileHover={{ scale: 1.05 }}
