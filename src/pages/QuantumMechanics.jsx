@@ -75,25 +75,25 @@ const benefits = [
 
 export default function QuantumMechanics({ darkMode }) {
   return (
-    <section className={`min-h-screen py-20 px-4 ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
+    <section className={`min-h-screen py-20 px-4 ${darkMode ? "bg-gray-900 text-white" : "light-mode-theme"}`}>
       <div className="max-w-5xl mx-auto">
         <motion.h1
-          className="text-4xl md:text-5xl font-extrabold text-center mb-6 bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent"
+          className={`text-4xl md:text-5xl font-extrabold text-center mb-6 ${darkMode ? "text-white" : "bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-400 bg-clip-text text-transparent"}`}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
         >
           <span className="inline-flex items-center gap-2">
-            <Atom className="w-10 h-10 text-purple-500 dark:text-cyan-400 animate-spin-slow" />
+            <Atom className="w-10 h-10 text-blue-600 dark:text-cyan-400 animate-spin-slow" />
             Quantum Mechanics
           </span>
         </motion.h1>
         <motion.p
-          className="text-xl max-w-3xl mx-auto text-center mb-10"
+          className={`text-xl max-w-3xl mx-auto text-center mb-10 ${darkMode ? "text-gray-300" : "light-body"}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
         >
-          <span role="img" aria-label="galaxy">🌌</span> Explore quantum mechanics with interactive simulations. Learn the core principles by experimenting in real time. Our platform makes abstract concepts easy to understand through hands-on visual tools.
+          <span role="img" aria-label="galaxy"></span> Explore quantum mechanics with interactive simulations. Learn the core principles by experimenting in real time. Our platform makes abstract concepts easy to understand through hands-on visual tools.
         </motion.p>
 
         <motion.h2
@@ -108,15 +108,15 @@ export default function QuantumMechanics({ darkMode }) {
           {features.map((f, i) => (
             <motion.div
               key={f.title}
-              className="flex flex-col items-center bg-white/80 dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-purple-100 dark:border-gray-800 hover:scale-105 transition-transform group"
+              className={`flex flex-col items-center ${darkMode ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6 border ${darkMode ? 'border-gray-800' : 'border-blue-100'} hover:scale-105 transition-transform group`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 * i, duration: 0.5 }}
             >
               <span className="mb-2 animate-bounce group-hover:animate-spin-slow">{f.icon}</span>
-              <h4 className="mt-1 text-lg font-semibold text-purple-700 dark:text-cyan-300">{f.title}</h4>
-              <p className="text-gray-600 dark:text-gray-400 text-center mt-1">{f.desc}</p>
+              <h4 className={`mt-1 text-lg font-semibold ${darkMode ? 'text-cyan-300' : 'text-blue-700'}`}>{f.title}</h4>
+              <p className={`text-center mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -133,7 +133,7 @@ export default function QuantumMechanics({ darkMode }) {
           {benefits.map((b, i) => (
             <motion.div
               key={b.title}
-              className="flex flex-col items-center bg-gradient-to-br from-purple-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 shadow-md border border-purple-100 dark:border-gray-800 hover:scale-120 transition-transform"
+              className={`flex flex-col items-center ${darkMode ? 'bg-gray-800' : 'bg-white'} rounded-xl p-6 shadow-md border ${darkMode ? 'border-gray-800' : 'border-purple-200'} hover:scale-120 transition-transform`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -141,7 +141,9 @@ export default function QuantumMechanics({ darkMode }) {
             >
               <span className="mb-2">{b.icon}</span>
               <h4 className="mt-1 text-lg font-semibold text-purple-700 dark:text-cyan-300">{b.title}</h4>
-              <p className="text-gray-600 dark:text-gray-400 text-center mt-1">{b.desc}</p>
+              <p className={`text-center mt-1 ${!darkMode ? 'text-black' : 'text-gray-400'}`}>
+                {b.desc}
+              </p>
             </motion.div>
           ))}
         </div>

@@ -121,7 +121,7 @@ export default function Resources({ darkMode }) {
           {resources.map((res, index) => (
             <motion.div
               key={index}
-              className="p-6 rounded-2xl shadow-md bg-white/70 dark:bg-gray-800/70"
+              className={`p-6 rounded-2xl shadow-md ${darkMode ? 'bg-gray-800/70' : 'bg-white/80'} border ${darkMode ? 'border-gray-700' : 'border-purple-100'}`}
               whileHover={{ scale: 1.03 }}
             >
               <div className="flex items-center gap-3 mb-4">

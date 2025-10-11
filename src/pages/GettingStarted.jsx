@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function GettingStarted({ darkMode }) {
   return (
     <section
-      className={`min-h-screen py-20 px-6 ${
+      className={`min-h-screen py-20 px-20 ${
         darkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-900"
       }`}
     >

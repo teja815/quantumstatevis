@@ -161,7 +161,7 @@ export default function VisualizerSection({ darkMode, onVisualizerClick, showAmp
                 >
                   <span className="relative flex items-center justify-center space-x-2">
                     <Play className="w-5 h-5" />
-                    <span>Demo</span>
+                    <span>Circuit Generator</span>
                     <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </span>
                 </motion.button>

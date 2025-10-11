@@ -57,7 +57,7 @@ export default function Community({ darkMode }) {
           </span>
         </motion.h1>
         <motion.p
-          className="text-xl max-w-3xl mx-auto text-center mb-10"
+          className="text-xl max-w-3xl mx-auto text-center mb-10 text-purple-800 dark:text-gray-500"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
@@ -70,15 +70,15 @@ export default function Community({ darkMode }) {
           {people.map((person, i) => (
             <motion.div
               key={person.name}
-              className="rounded-2xl bg-white/80 dark:bg-gray-900/60 shadow-lg border border-purple-100 dark:border-cyan-900 p-6 flex flex-col items-center gap-3 hover:scale-105 transition-transform group"
+              className={`rounded-2xl ${darkMode ? 'bg-gray-500' : 'bg-white/80'} shadow-lg border ${darkMode ? 'border-cyan-900' : 'border-purple-100'} p-6 flex flex-col items-center gap-3 hover:scale-105 transition-transform group`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 * i }}
             >
-              <img src={person.img} alt={person.name} className="w-24 h-24 rounded-full object-cover border-4 border-purple-300 dark:border-cyan-500 shadow-lg mb-2" />
-              <h3 className="text-lg font-semibold text-purple-600 dark:text-cyan-300 text-center">{person.name}</h3>
-              <p className="text-gray-700 dark:text-gray-300 text-center text-sm mb-2 flex items-center gap-1"><Info className="w-4 h-4 text-purple-400 inline" />{person.info}</p>
+              <img src={person.img} alt={person.name} className={`w-24 h-24 rounded-full object-cover border-4 ${darkMode ? 'border-cyan-500' : 'border-purple-300'} shadow-lg mb-2`} />
+              <h3 className="text-lg font-semibold text-purple-700 dark:text-cyan-300 text-center">{person.name}</h3>
+              <p className="text-gray-800 dark:text-gray-300 text-center text-sm mb-2 flex items-center gap-1"><Info className="w-4 h-4 text-purple-400 inline" />{person.info}</p>
               <div className="flex gap-2">
                 <a href={person.google} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-pink-500 underline flex items-center gap-1">Google<Search className="w-3 h-3 inline" /></a>
                 <a href={person.wiki} target="_blank" rel="noopener noreferrer" className="text-purple-500 hover:text-amber-500 underline flex items-center gap-1">Wikipedia<ExternalLink className="w-3 h-3 inline" /></a>

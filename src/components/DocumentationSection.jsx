@@ -8,7 +8,7 @@ export default function DocumentationSection({ darkMode }) {
     {
       icon: BookOpen,
       title: 'Getting Started',
-      description: 'Learn the basics of quantum computing and how to use our platform.',
+      description: 'Learn the basics of quantum ,how to use our platform.',
       color: 'from-blue-500 to-cyan-500',
       link: '/getting-started',
     },

@@ -72,7 +72,8 @@ export default function Layout({ children, user, onLogout, darkMode, toggleDarkM
               >
                 <div className="w-6 h-6 border-2 border-white rounded-full border-dashed" />
               </motion.div>
-              <h1 className={`text-xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent`}>
+              <h1 className={`text-xl font-bold text-purple-700
+`}>
                 Quantum Bucket
               </h1>
             </div>
