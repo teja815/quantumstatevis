@@ -98,20 +98,20 @@ export default function Resources({ darkMode }) {
   return (
     <section
       className={`min-h-screen py-20 px-6 ${
-        darkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-900"
+        darkMode ? "bg-transparent text-gray-100" : "light-mode-theme"
       }`}
     >
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <motion.h1
-          className="text-4xl md:text-5xl font-bold mb-6 text-center"
+          className={`text-4xl md:text-5xl font-bold mb-6 text-center ${darkMode ? "text-white" : "bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-400 bg-clip-text text-transparent"}`}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
         >
           Resources
         </motion.h1>
 
-        <p className="text-lg text-center max-w-3xl mx-auto mb-12">
+        <p className={`text-lg text-center max-w-3xl mx-auto mb-12 ${darkMode ? "text-gray-300" : "light-body"}`}>
           Download research papers, datasets, tools, and other learning material
           for quantum computing.
         </p>
@@ -121,14 +121,14 @@ export default function Resources({ darkMode }) {
           {resources.map((res, index) => (
             <motion.div
               key={index}
-              className={`p-6 rounded-2xl shadow-md ${darkMode ? 'bg-gray-800/70' : 'bg-white/80'} border ${darkMode ? 'border-gray-700' : 'border-purple-100'}`}
+              className={`p-6 rounded-2xl shadow-md border ${darkMode ? 'bg-gray-800/70 border-gray-700' : 'bg-white border-violet-300'}`}
               whileHover={{ scale: 1.03 }}
             >
               <div className="flex items-center gap-3 mb-4">
                 {res.icon}
-                <h2 className="text-xl font-semibold">{res.title}</h2>
+                <h2 className={`text-xl font-semibold ${darkMode ? "text-cyan-300" : "text-blue-700"}`}>{res.title}</h2>
               </div>
-              <p className="mb-4">{res.description}</p>
+              <p className={`mb-4 ${darkMode ? "text-gray-300" : "light-body"}`}>{res.description}</p>
               <ul className="space-y-2">
                 {res.links.map((link, i) => (
                   <li key={i}>

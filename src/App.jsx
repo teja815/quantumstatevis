@@ -23,6 +23,7 @@ import GettingStarted from "./pages/GettingStarted";
 import APIReference from "./pages/APIReference";
 import Tutorials from "./pages/Tutorials";
 import Resources from "./pages/Resources";
+import QuantumNews from "./pages/QuantumNews";
 
 // Layout Wrapper
 import Layout from "./components/Layout";
@@ -214,6 +215,18 @@ function App() {
             user ? (
               <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                 <Resources darkMode={darkMode} />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/quantum-news"
+          element={
+            user ? (
+              <Layout user={user} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <QuantumNews darkMode={darkMode} />
               </Layout>
             ) : (
               <Navigate to="/login" />

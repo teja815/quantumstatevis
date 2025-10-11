@@ -45,18 +45,18 @@ export default function Tutorials({ darkMode }) {
   return (
     <section
       className={`min-h-screen py-20 px-6 ${
-        darkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-900"
+        darkMode ? "bg-transparent text-gray-100" : "light-mode-theme"
       }`}
     >
       <div className="max-w-6xl mx-auto">
         <motion.h1
-          className="text-4xl md:text-5xl font-bold mb-6"
+          className={`text-4xl md:text-5xl font-bold mb-6 ${darkMode ? "text-white" : "bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-400 bg-clip-text text-transparent"}`}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
         >
           Tutorials
         </motion.h1>
-        <p>
+        <p className={darkMode ? "text-gray-300" : "light-body"}>
           Step-by-step guides for building quantum algorithms and circuits,
           complete with interactive examples.
         </p>
@@ -66,8 +66,8 @@ export default function Tutorials({ darkMode }) {
           {tutorials.map((tut, index) => (
             <motion.div
               key={index}
-              className={`rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:scale-105 duration-300 ${
-                darkMode ? "bg-gray-800" : "bg-gray-100"
+              className={`rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:scale-105 duration-300 border ${
+                darkMode ? "bg-gray-800/70 border-gray-700" : "bg-white border-violet-300"
               }`}
               whileHover={{ y: -5 }}
             >
@@ -84,8 +84,8 @@ export default function Tutorials({ darkMode }) {
               </div>
 
               <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2">{tut.title}</h3>
-                <p className="text-sm opacity-80 mb-3">{tut.platform}</p>
+                <h3 className={`text-lg font-semibold mb-2 ${darkMode ? "text-cyan-300" : "text-blue-700"}`}>{tut.title}</h3>
+                <p className={`text-sm mb-3 ${darkMode ? "text-gray-400" : "light-body"}`}>{tut.platform}</p>
                 <motion.a
                   href={tut.link}
                   target="_blank"
