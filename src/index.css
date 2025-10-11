@@ -35,6 +35,36 @@ html {
   -webkit-backdrop-filter: blur(16px);
 }
 
+/* Light mode theme */
+.light-mode-theme {
+  background: transparent;
+}
+
+.light-heading {
+  background: linear-gradient(to right, #1e40af, #06b6d4, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.light-body {
+  color: #374151;
+}
+
+.light-card {
+  background: white;
+  border: 1px solid #c4b5fd;
+}
+
+.light-link {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.light-link:hover {
+  color: #0891b2;
+}
+
 /* Animation utilities */
 @keyframes float {
 
